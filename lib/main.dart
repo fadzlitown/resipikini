@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resipikini/TabsScreen.dart';
+import 'package:resipikini/tabs_screen.dart';
 
 import 'const.dart' as globals;
 
