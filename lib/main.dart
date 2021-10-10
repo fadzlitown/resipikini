@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:resipikini/TabsScreen.dart';
 
-import 'categories_screen.dart';
+import 'const.dart' as globals;
 
 void main() {
   runApp(MyApp());
@@ -11,23 +12,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Resipi Kini',
       theme: ThemeData(
           primarySwatch: Colors.blue,
           accentColor: Colors.amber,
           canvasColor: Color.fromRGBO(255, 254, 229, 1),
-          fontFamily: 'Raleway',
+          fontFamily: globals.Const.FONT_FAMILY_RALEYWAY,
           textTheme: ThemeData.light().textTheme.copyWith(
                 body1: TextStyle(color: Colors.orange),
                 body2: TextStyle(color: Colors.orangeAccent),
                 title: TextStyle(
                   color: Colors.purpleAccent,
                   fontSize: 17,
-                  fontFamily: 'RobotoCondensed',
+                  fontFamily: globals.Const.FONT_FAMILY_ROBOTO,
                   fontWeight: FontWeight.bold,
                 ),
               )),
-      home: CategoriesScreen(title: 'Flutter Demo Home Page'),
+      home: TabsScreen(title: globals.Const.APP_NAME),
     );
   }
 }
