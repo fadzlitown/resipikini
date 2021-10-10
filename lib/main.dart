@@ -2,13 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:resipikini/tabs_screen.dart';
 
 import 'const.dart' as globals;
+import 'models/dummy_data.dart';
+import 'models/meal.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [DUMMY_MEALS.first, DUMMY_MEALS.last];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +37,7 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               )),
-      home: TabsScreen(title: globals.Const.APP_NAME),
+      home: TabsScreen(title: globals.Const.APP_NAME, favMeals: _favoriteMeals),
     );
   }
 }

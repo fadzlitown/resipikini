@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:resipikini/enum/complexity.dart';
 
 import 'categories_screen.dart';
 import 'const.dart' as globals;
+import 'enum/affordability.dart';
+import 'models/meal.dart';
 
 /// This Tabs Screen required a state to saved in app
 /// eg. init pages, list meals. Hence, StatefulWidget is needed
 class TabsScreen extends StatefulWidget {
   String title;
 
+  final List<Meal> favMeals;
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 
-  TabsScreen({this.title});
+  TabsScreen({this.title, this.favMeals});
 }
 
 class _TabsScreenState extends State<TabsScreen> {
@@ -26,7 +31,7 @@ class _TabsScreenState extends State<TabsScreen> {
         'page': CategoriesScreen(title: widget.title),
         'title': globals.Const.PAGE_1
       },
-      {'page': Container(), 'title': globals.Const.PAGE_2}
+      {'page': FavScreen(widget.favMeals), 'title': globals.Const.PAGE_2}
     ];
     super.initState();
   }
@@ -46,6 +51,7 @@ class _TabsScreenState extends State<TabsScreen> {
       ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
+        ///call this to rebuild the navigation bar with the new [_selectedPageIndex]
         onTap: _selectedPage,
         backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
