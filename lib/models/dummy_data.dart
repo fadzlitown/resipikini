@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:resipikini/enum/Affordability.dart';
-import 'package:resipikini/enum/Complexity.dart';
+import 'package:resipikini/enum/affordability.dart';
+import 'package:resipikini/enum/complexity.dart';
 
 import 'category.dart';
 import 'meal.dart';
