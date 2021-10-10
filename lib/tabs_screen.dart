@@ -4,6 +4,7 @@ import 'package:resipikini/enum/complexity.dart';
 import 'categories_screen.dart';
 import 'const.dart' as globals;
 import 'enum/affordability.dart';
+import 'fav_screen.dart';
 import 'models/meal.dart';
 
 /// This Tabs Screen required a state to saved in app
