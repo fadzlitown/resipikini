@@ -12,8 +12,7 @@ class CategoryItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Text(title,
-          style: TextStyle(
-              color: Colors.white, fontSize: 12, fontWeight: FontWeight.normal),
+          style: Theme.of(context).textTheme.title,
           textAlign: TextAlign.center),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle, color: Colors.grey,
