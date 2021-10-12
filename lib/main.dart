@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resipikini/meal_detail_screen.dart';
 import 'package:resipikini/tabs_screen.dart';
 
 import 'const.dart' as globals;
@@ -37,7 +38,13 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold,
                 ),
               )),
-      home: TabsScreen(title: globals.Const.APP_NAME, favMeals: _favoriteMeals),
+      // home: TabsScreen(title: globals.Const.APP_NAME, favMeals: _favoriteMeals),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) =>
+            TabsScreen(title: globals.Const.APP_NAME, favMeals: _favoriteMeals),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen()
+      },
     );
   }
 }

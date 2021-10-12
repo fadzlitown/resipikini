@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resipikini/meal_detail_screen.dart';
 
 import 'enum/affordability.dart';
 import 'enum/complexity.dart';
@@ -45,76 +46,92 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          ///ClipRRect = Creates a rounded-  rectangular clip right-angled corners
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            child: Image.network(
-              meal.imageUrl,
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
+    ///InkWell = a rectangular area of a [Material] that
+    ///responds to the touch action as performed by the user
+    return InkWell(
+      /// onTap = accepting anon Function()
+      onTap: () => _onSelectedMeal(context),
+      child: Card(
+        elevation: 5,
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            ///ClipRRect = Creates a rounded-  rectangular clip right-angled corners
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              child: Image.network(
+                meal.imageUrl,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Container(
-            width: 300,
-            padding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 20,
+            Container(
+              width: 300,
+              padding: EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 20,
+              ),
+              child: Text(meal.title,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+
+                  ///Whether the text should break at soft line breaks
+                  softWrap: true,
+
+                  ///Fade the overflowing text to transparent.
+                  overflow: TextOverflow.fade),
             ),
-            child: Text(meal.title,
-                style: TextStyle(fontSize: 20, color: Colors.black),
-
-                ///Whether the text should break at soft line breaks
-                softWrap: true,
-
-                ///Fade the overflowing text to transparent.
-                overflow: TextOverflow.fade),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.schedule,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(meal.duration.toString() + "min"),
+                    ],
+                  ),
+                  Row(children: [
                     Icon(
-                      Icons.schedule,
+                      Icons.work,
                     ),
                     SizedBox(
                       width: 6,
                     ),
-                    Text(meal.duration.toString() + "min"),
-                  ],
-                ),
-                Row(children: [
-                  Icon(
-                    Icons.work,
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(complexityText),
-                ]),
-                Row(children: [
-                  Icon(
-                    Icons.attach_money,
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(affordabilityText),
-                ]),
-              ],
-            ),
-          )
-        ],
+                    Text(complexityText),
+                  ]),
+                  Row(children: [
+                    Icon(
+                      Icons.attach_money,
+                    ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Text(affordabilityText),
+                  ]),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  void _onSelectedMeal(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(MealDetailScreen.routeName, arguments: meal.id)
+        .then((value) {
+      if (value != null) {
+        ///do anything
+      }
+    });
   }
 }
