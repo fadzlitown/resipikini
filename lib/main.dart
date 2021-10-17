@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resipikini/category_meals_screen.dart';
+import 'package:resipikini/filter_screen.dart';
 import 'package:resipikini/meal_detail_screen.dart';
 import 'package:resipikini/tabs_screen.dart';
 
@@ -19,8 +20,36 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Map<String, bool> _currentFilters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
   List<Meal> _availableMeals = DUMMY_MEALS;
   List<Meal> _favoriteMeals = [DUMMY_MEALS.first, DUMMY_MEALS.last];
+
+  /// Save func will be triggered here
+  void _savedFilters(Map<String, bool> savedFilterScreenData) {
+    setState(() {
+      _currentFilters = savedFilterScreenData;
+      _availableMeals = DUMMY_MEALS.where((element) {
+        if (_currentFilters['gluten'] && !element.isGlutenFree) {
+          return false;
+        }
+        if (_currentFilters['lactose'] && !element.isLactoseFree) {
+          return false;
+        }
+        if (_currentFilters['vegan'] && !element.isVegan) {
+          return false;
+        }
+        if (_currentFilters['vegetarian'] && !element.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +76,9 @@ class _MyAppState extends State<MyApp> {
             TabsScreen(title: globals.Const.APP_NAME, favMeals: _favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen()
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        FilterScreen.routeName: (ctx) =>
+            FilterScreen(_currentFilters, _savedFilters)
       },
       onGenerateRoute: (settings) {
         print(settings.arguments);

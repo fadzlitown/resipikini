@@ -10,6 +10,8 @@ class CategoryItem extends StatelessWidget {
   CategoryItem(this.id, this.title, this.color);
 
   void selectCategory(BuildContext ctx) {
+    ///Push a new page, when back/pop it will removed.
+    ///also it has a few push depending on our use cases. eg. push, pushName, pushReplacement etc
     Navigator.of(ctx).pushNamed(CategoryMealsScreen.routeName,
 
         /// pass the args by using arguments with any obj
@@ -18,6 +20,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Gesture Tap with UI ripple effect
     return InkWell(
       onTap: () => selectCategory(context),
       splashColor: Theme.of(context).primaryColor,

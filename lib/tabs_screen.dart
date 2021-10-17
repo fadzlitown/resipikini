@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:resipikini/enum/complexity.dart';
 
 import 'categories_screen.dart';
 import 'const.dart' as globals;
-import 'enum/affordability.dart';
 import 'fav_screen.dart';
+import 'filter_screen.dart';
 import 'models/meal.dart';
 
 /// This Tabs Screen required a state to saved in app
 /// eg. init pages, list meals. Hence, StatefulWidget is needed
 class TabsScreen extends StatefulWidget {
   String title;
-
   final List<Meal> favMeals;
 
   @override
@@ -50,7 +48,24 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _pages[_selectedPageIndex]['page'],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (_selectedPageIndex == 0)
+            IconButton(
+                padding: EdgeInsets.all(6),
+                alignment: Alignment.centerRight,
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(FilterScreen.routeName);
+                }),
+          Expanded(
+              child: Container(
+            child: _pages[_selectedPageIndex]['page'],
+          ))
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         ///call this to rebuild the navigation bar with the new [_selectedPageIndex]
         onTap: _selectedPage,
@@ -59,17 +74,21 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedItemColor: Theme.of(context).accentColor,
         currentIndex: _selectedPageIndex,
         // type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              title: Text(globals.Const.PAGE_1),
-              backgroundColor: Theme.of(context).primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              title: Text(globals.Const.PAGE_2),
-              backgroundColor: Theme.of(context).primaryColor)
-        ],
+        items: _tabsConfiguration(context),
       ),
     );
+  }
+
+  _tabsConfiguration(BuildContext context) {
+    return [
+      BottomNavigationBarItem(
+          icon: Icon(Icons.category),
+          title: Text(globals.Const.PAGE_1),
+          backgroundColor: Theme.of(context).primaryColor),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.star),
+          title: Text(globals.Const.PAGE_2),
+          backgroundColor: Theme.of(context).primaryColor),
+    ];
   }
 }

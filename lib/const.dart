@@ -6,4 +6,5 @@ class Const {
   ///Tabs Screen
   static var PAGE_1 = 'Categories';
   static var PAGE_2 = 'Favourate';
+  static var PAGE_3 = 'Filter';
 }
